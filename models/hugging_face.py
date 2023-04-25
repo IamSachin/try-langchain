@@ -4,8 +4,9 @@ from .model_provider import ModelProvider
 
 
 class HuggingFace(ModelProvider):
-    def __init__(self, model=FLAN_T5_XL):
+    def __init__(self, model=FLAN_T5_XL, temperature=TEMP_VERY_COLD):
         self.model = model
+        self.temperature = temperature
 
     def llm(self):
-        return HuggingFaceHub(repo_id=self.model, model_kwargs={"temperature": TEMP_VERY_COLD})
+        return HuggingFaceHub(repo_id=self.model, model_kwargs={"temperature": self.temperature})
