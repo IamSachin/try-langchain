@@ -6,7 +6,7 @@ template = """
 Question: {question}
 Answer: 
 """
-promptTemplate = TemplateService().create_template(template, ['question'])
+promptTemplate = TemplateService().create_template(template)
 chain = ChainService(OpenAI()).get_chain(promptTemplate)
 
 while True:

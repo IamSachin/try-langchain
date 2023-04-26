@@ -3,5 +3,5 @@ from langchain import PromptTemplate
 
 
 class TemplateService:
-    def create_template(self, template: str, input_variables: List[str]) -> PromptTemplate:
-        return PromptTemplate(template=template, input_variables=input_variables)
+    def create_template(self, template: str) -> PromptTemplate:
+        return PromptTemplate.from_template(template=template)
