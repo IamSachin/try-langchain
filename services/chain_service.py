@@ -1,6 +1,6 @@
 from langchain import LLMChain, PromptTemplate, ConversationChain
 from models.model_provider import ModelProvider
-from langchain.chains.conversation.memory import ConversationBufferMemory, ConversationSummaryMemory
+from langchain.chains.conversation.memory import ConversationBufferMemory, ConversationSummaryMemory, ConversationBufferWindowMemory
 
 
 class ChainService:
@@ -19,6 +19,9 @@ class ChainService:
 
     def get_conversation_summary_chain(self):
         return self.get_conversation_chain(ConversationSummaryMemory(llm=self.llm))
+
+    def get_conversation_summary_window(self, message_to_remember=1):
+        return self.get_conversation_chain(ConversationBufferWindowMemory(k=message_to_remember))
 
     def get_conversation_chain(self, memory):
         return ConversationChain(
