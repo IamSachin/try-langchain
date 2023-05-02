@@ -30,9 +30,9 @@ summary_memory_chain = open_ai_chain.get_conversation_summary_chain()
 
 # Menu
 print('Select mode: ')
-print('1. Sequential chain conversation')
-print('2. Conversation with complete memory')
-print('3. Conversation with summarization memory')
+print('1. Sequential chain conversation - clean up and then simple q and a without memory')
+print('2. Conversation with complete memory - more accurate, good for short conversations')
+print('3. Conversation with summarization memory - less accurate, good for long conversations')
 option = input("Enter option number: ")
 
 
