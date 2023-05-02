@@ -33,10 +33,10 @@ knowledge_graph_memory_chain = open_ai_chain.get_conversation_knowledge_graph_me
 # Menu
 print('Select mode: ')
 print('1. Sequential chain conversation - clean up and then simple q and a without memory')
-print('2. Conversation with complete memory - more accurate, good for short conversations')
-print('3. Conversation with summarization memory - less accurate, good for long conversations')
-print('4. Conversation with buffer memory window - window is set to 1, will remember last sentence')
-print('5. Conversation with knowledge graph memory - stores relation between tokens')
+print('2. Complete memory conversation - more accurate, good for short conversations')
+print('3. Summarization memory conversation - less accurate, good for long conversations')
+print('4. Buffer window memory conversation - window is set to 1, will remember last sentence')
+print('5. Knowledge graph memory conversation - stores relation between tokens')
 option = input("Enter option number: ")
 
 
