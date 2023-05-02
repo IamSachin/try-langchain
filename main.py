@@ -1,9 +1,9 @@
 from services.template_service import TemplateService
 from services.chain_service import ChainService
 from models.openai import OpenAI
-from langchain.callbacks import get_openai_callback
 from langchain.chains import TransformChain, SequentialChain
 from helpers.clean_input import clean_input
+from helpers.count_token import count_token
 
 # First chain that cleans up the input
 clean_extra_spaces_chain = TransformChain(input_variables=['text'], output_variables=[
@@ -23,13 +23,9 @@ sequential_chain = SequentialChain(
 
 
 while True:
-    with get_openai_callback() as cb:
-        question = input("Ask me anything!\n")
+    question = input("Ask me anything!\n")
 
-        if question.lower() == "quit":
-            break
+    if question.lower() == "quit":
+        break
 
-        print(sequential_chain.run({'text': question}))
-        print('\n')
-    print(cb)
-    print('\n')
+    count_token(sequential_chain, {'text': question})
