@@ -1,5 +1,6 @@
-from langchain import LLMChain, PromptTemplate
+from langchain import LLMChain, PromptTemplate, ConversationChain
 from models.model_provider import ModelProvider
+from langchain.chains.conversation.memory import ConversationBufferMemory
 
 
 class ChainService:
@@ -11,4 +12,10 @@ class ChainService:
             prompt=prompt,
             llm=self.model.llm(),
             output_key=output_key
+        )
+
+    def get_conversation_chain(self, memory=ConversationBufferMemory()):
+        return ConversationChain(
+            llm=self.model.llm(),
+            memory=memory
         )
