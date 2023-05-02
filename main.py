@@ -26,15 +26,17 @@ sequential_chain = SequentialChain(
 
 # Memory chains
 full_memory_chain = open_ai_chain.get_conversation_full_memory_chain()
-summary_memory_chain = open_ai_chain.get_conversation_summary_chain()
-summary_memory_window = open_ai_chain.get_conversation_summary_window()
+summary_memory_chain = open_ai_chain.get_conversation_summary_memory_chain()
+buffer_window_memory_chain = open_ai_chain.get_conversation_buffer_window_memory_chain()
+knowledge_graph_memory_chain = open_ai_chain.get_conversation_knowledge_graph_memory_chain()
 
 # Menu
 print('Select mode: ')
 print('1. Sequential chain conversation - clean up and then simple q and a without memory')
 print('2. Conversation with complete memory - more accurate, good for short conversations')
 print('3. Conversation with summarization memory - less accurate, good for long conversations')
-print('4. Conversation with summarization memory window - window is set to 1, will remember last sentence')
+print('4. Conversation with buffer memory window - window is set to 1, will remember last sentence')
+print('5. Conversation with knowledge graph memory - stores relation between tokens')
 option = input("Enter option number: ")
 
 
@@ -52,6 +54,8 @@ while True:
         case '3':
             count_token(summary_memory_chain, question)
         case '4':
-            count_token(summary_memory_window, question)
+            count_token(buffer_window_memory_chain, question)
+        case '5':
+            count_token(knowledge_graph_memory_chain, question)
         case other:
             print('Invalid mode\n')
