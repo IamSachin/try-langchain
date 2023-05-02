@@ -6,6 +6,8 @@ from helpers.clean_input import clean_input
 from helpers.count_token import count_token
 
 
+open_ai_chain = ChainService(OpenAI())
+
 # Sequential chaining
 clean_extra_spaces_chain = TransformChain(input_variables=['text'], output_variables=[
                                           'output_text'], transform=clean_input)
@@ -15,20 +17,22 @@ Question: {output_text}
 Answer:
 """
 promptTemplate = TemplateService().create_template(template)
-basic_generic_chain = ChainService(OpenAI()).get_chain(
+basic_generic_chain = open_ai_chain.get_generic_chain(
     promptTemplate, output_key='final_output')
 sequential_chain = SequentialChain(
     chains=[clean_extra_spaces_chain, basic_generic_chain],
     input_variables=['text'], output_variables=['final_output'])
 
 
-# Conversation chaining
-conversation_buf = ChainService(OpenAI()).get_conversation_chain()
+# Memory chains
+full_memory_chain = open_ai_chain.get_conversation_full_memory_chain()
+summary_memory_chain = open_ai_chain.get_conversation_summary_chain()
 
-
+# Menu
 print('Select mode: ')
 print('1. Sequential chain conversation')
-print('2. Conversation with memory')
+print('2. Conversation with complete memory')
+print('3. Conversation with summarization memory')
 option = input("Enter option number: ")
 
 
@@ -42,6 +46,8 @@ while True:
         case '1':
             count_token(sequential_chain, {'text': question})
         case '2':
-            count_token(conversation_buf, question)
+            count_token(full_memory_chain, question)
+        case '3':
+            count_token(summary_memory_chain, question)
         case other:
             print('Invalid mode\n')
